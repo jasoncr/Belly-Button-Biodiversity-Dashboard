@@ -5,10 +5,11 @@ d3.json("../samples.json").then((data) => {
     var metadata = data.metadata;
     var samples = data.samples
 
-    buildBarPlot("940")
+    name = "945"
 
-    buildMetadata("940")
+    buildBarPlot(name)
 
+    buildMetadata(name)
 
     // Create function that inputs the test subject number as name
     function buildBarPlot(name){
@@ -71,7 +72,9 @@ d3.json("../samples.json").then((data) => {
         Plotly.newPlot("bar", data, layout)
     }
 
+    // Function which populates the Demographic info from the metadata
     function buildMetadata(name) {
+        // Loop through metadata
         for (i = 0; i < metadata.length; i++){
             if (metadata[i].id === parseInt(name)){
                 document.getElementById("subject_id").innerHTML = `id : ${metadata[i].id}`;
@@ -84,7 +87,9 @@ d3.json("../samples.json").then((data) => {
             }
         }
     }
+    
 })
+
 
 
 // // Create horizontal bar chart
