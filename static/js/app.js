@@ -51,7 +51,7 @@ d3.json("../samples.json").then((data) => {
         // var reversedData = slicedData.reverse()
         // console.log(reversedData)
 
-        // Trace1 for the bacteria data
+        // Trace1 for the bar chart
         var trace1 = {
             x : rev_values,
             y : rev_ids,
@@ -59,17 +59,28 @@ d3.json("../samples.json").then((data) => {
             type : "bar",
             orientation : "h"
         }
-
         // Apply layout
         var layout = {
             showlegend : false
         }
-
         // Data
         var data = [trace1]
 
+        // Trace2 for the bubble chart
+        var trace2 = {
+            x : otu_ids,
+            y: sample_values,
+            text : otu_labels,
+            mode : 'markers',
+            marker : {
+                sizemode : 'area'
+            }
+        }
+
         // Render the plot to the div tag 'bar'
         Plotly.newPlot("bar", data, layout)
+
+        Plotly.newPlot('bubble', [trace2])
     }
 
     // Function which populates the Demographic info from the metadata
@@ -91,9 +102,6 @@ d3.json("../samples.json").then((data) => {
 })
 
 
-
-// // Create horizontal bar chart
-// ​
 // // Make bubble chart
 // ​
 // // Display sample metadata
