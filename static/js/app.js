@@ -1,17 +1,15 @@
+// Use 
 d3.json("../samples.json").then((data) => {
     var names = data.names;
     var metadata = data.metadata;
     var samples = data.samples
-    //console.log(metadata);
 
     function barname(name){
-        //console.log(samples)
         var otu_ids = [];
         var sample_values = [];
         var otu_labels = [];
         for (i=0;i<samples.length;i++){
             if (samples[i].id === name){
-                //console.log(samples[i]);
                 for (j = 0; j<samples[i].otu_ids.length; j++){
                     otu_ids.push(samples[i].otu_ids[j]);
                     sample_values.push(samples[i].sample_values[j]);
@@ -19,30 +17,33 @@ d3.json("../samples.json").then((data) => {
                 }
             }
         }
-        data = {
-            "otu_ids" : otu_ids,
-            "sample_values" : sample_values,
-            "otu_labels" : otu_labels
+        ids = otu_ids.slice(0,10)
+        values = sample_values.slice(0,10)
+        labels = otu_labels.slice(0,10)
+        ids = ids.map(String)
+        var ids2 = []
+        for (i=0; i<ids.length; i++){
+            ids2.push('OTU ' + ids[i])
         }
-        //console.log(data)
+        console.log(ids2)
+        rev_ids = ids2.reverse()
+        rev_values = values.reverse()
+        rev_labels = labels.reverse()
 
-        
-        var slicedData = data.slice(0,10)
-        var reversedData = slicedData.reverse()
-        console.log(reversedData)
+        //var sortedData = data.sort((a,b) => b.sample_values - a.sample_values)
+        // var slicedData = sortedData.slice(0,10)
+        // var reversedData = slicedData.reverse()
+        // console.log(reversedData)
 
         var trace = {
-            x : reversedData.map(object => object.sample_values),
-            y : reversedData.map(object => object.otu_ids),
-            text : reversedData.map(object => object.otu_labels),
+            x : rev_values,
+            y : rev_ids,
+            text : rev_labels,
             type : "bar",
             orientation : "h"
         }
 
         var layout = {
-            xaxis : {
-                type : 'string'
-            },
             showlegend : false
         }
 
@@ -54,7 +55,7 @@ d3.json("../samples.json").then((data) => {
 })
 
 //         var layout = {
-            
+
 //         }
 //         Plotly.newPlot("bar", [trace1])
 //     }
