@@ -73,9 +73,14 @@ d3.json("../samples.json").then((data) => {
 
     function buildMetadata(name) {
         for (i = 0; i < metadata.length; i++){
-            //console.log(metadata[i].id)
             if (metadata[i].id === parseInt(name)){
-                console.log(metadata[i])
+                document.getElementById("subject_id").innerHTML = `id : ${metadata[i].id}`;
+                document.getElementById("subject_ethnicity").innerHTML = `ethnicity : ${metadata[i].ethnicity}`;
+                document.getElementById("subject_gender").innerHTML = `gender : ${metadata[i].gender}`;
+                document.getElementById("subject_age").innerHTML = `age : ${metadata[i].age}`;
+                document.getElementById("subject_location").innerHTML = `location : ${metadata[i].location}`;
+                document.getElementById("subject_bbtype").innerHTML = `bbtype : ${metadata[i].bbtype}`;
+                document.getElementById("subject_wfreq").innerHTML = `wfreq : ${metadata[i].wfreq}`;
             }
         }
     }
