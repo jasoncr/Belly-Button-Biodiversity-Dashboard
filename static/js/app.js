@@ -5,14 +5,32 @@ d3.json("../samples.json").then((data) => {
     var metadata = data.metadata;
     var samples = data.samples
 
-    name = "945"
+    // Use D3 to select the dropdown menu
+    d3.selectAll("#selDataset").on("change", updatePlotly);
+    var select = document.getElementById("selDataset")
+    // Add the test subject id numbers to the drop down list
+    for (i = 0; i < names.length; i++){
+        var id = names[i];
+        var option = document.createElement("option");
+        option.text = id;
+        option.value = id;
+        select.appendChild(option);
+    }
 
-    buildBarPlot(name)
+    // This function is called when a dropdown menu item is selected
+    function updatePlotly() {
+        // Use D3 to select the dropdown menu
+        var dropdownMenu = d3.select("#selDataset");
+        // Assign the value of the dropdown menu option to a variable
+        var dataset = dropdownMenu.property("value");
 
-    buildMetadata(name)
+        buildPlots(dataset);
+        buildMetadata(dataset);
+    }
 
-    // Create function that inputs the test subject number as name
-    function buildBarPlot(name){
+  
+    // Create function that inputs the test subject number as name and builds the bar and 
+    function buildPlots(name){
         var otu_ids = [];
         var sample_values = [];
         var otu_labels = [];
@@ -45,12 +63,6 @@ d3.json("../samples.json").then((data) => {
         rev_values = values.reverse()
         rev_labels = labels.reverse()
 
-        // ************is this possible?*************
-        //var sortedData = data.sort((a,b) => b.sample_values - a.sample_values)
-        // var slicedData = sortedData.slice(0,10)
-        // var reversedData = slicedData.reverse()
-        // console.log(reversedData)
-
         // Trace1 for the bar chart
         var trace1 = {
             x : rev_values,
@@ -72,9 +84,10 @@ d3.json("../samples.json").then((data) => {
             y: sample_values,
             text : otu_labels,
             mode : 'markers',
-            marker : {
-                sizemode : 'area'
-            }
+            marker: {
+                size: sample_values,
+                color: otu_ids
+            },
         }
 
         // Render the plot to the div tag 'bar'
@@ -100,12 +113,3 @@ d3.json("../samples.json").then((data) => {
     }
     
 })
-
-
-// // Make bubble chart
-// ​
-// // Display sample metadata
-// ​
-// // Display each key-value pair from the metadata JSON object sommewhere
-// ​
-// // Update all plots when one is selected
