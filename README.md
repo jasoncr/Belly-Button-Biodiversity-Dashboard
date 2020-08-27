@@ -1,1 +1,2 @@
 # plotly-challenge
+In this challenge I created a dashboard using javascript and html. The dashboard takes the data about belly button biodiversity in json format and displays the participant's demographics, breakdown of the top 10 microbes in their belly button, and a bubble chart of all the different microbes. The html has a drop down list so the user can select each person's id and his/her breakdown.
