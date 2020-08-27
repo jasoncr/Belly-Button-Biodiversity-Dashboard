@@ -90,9 +90,40 @@ d3.json("../samples.json").then((data) => {
             },
         }
 
+        var trace3 = [
+            {
+              domain: { x: [0, 1], y: [0, 1] },
+              value: 2,//needs inserted
+              title: { text: "<b>Belly Button Washing Frequency</b> <br> Scrubs per Week" },
+              type: "indicator",
+              mode: "gauge+number",
+              gauge: {
+                axis: { range: [null, 9] },
+                steps: [
+                  { range: [0, 1], color: "lightgray" },
+                  { range: [1, 2], color: "gray" },
+                  { range: [2, 3], color: "lightpurple" },
+                  { range: [3, 4], color: "yellow" },
+                  { range: [4, 5], color: "lightblue" },
+                  { range: [5, 6], color: "blue" },
+                  { range: [6, 7], color: "lightgreen" },
+                  { range: [7, 8], color: "green" },
+                  { range: [8, 9], color: "pink" },
+                ],
+              }
+            }
+          ];
+          
+          var layout2 = { width: 600, height: 450, margin: { t: 0, b: 0 } };
+
+        
+        //var layout = { width: 600, height: 500, margin: { t: 0, b: 0 } };
+        Plotly.newPlot('gauge', trace3, layout2);
+
         // Render the plot to the div tag 'bar'
         Plotly.newPlot("bar", data, layout)
 
+        // Render the bubble plot to the div tag 'bubble'
         Plotly.newPlot('bubble', [trace2])
     }
 
