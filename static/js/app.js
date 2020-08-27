@@ -26,6 +26,7 @@ d3.json("../samples.json").then((data) => {
 
         buildPlots(dataset);
         buildMetadata(dataset);
+        buildGauge(dataset);
     }
 
   
@@ -90,10 +91,40 @@ d3.json("../samples.json").then((data) => {
             },
         }
 
+        // Render the plot to the div tag 'bar'
+        Plotly.newPlot("bar", data, layout)
+
+        // Render the bubble plot to the div tag 'bubble'
+        Plotly.newPlot('bubble', [trace2])
+    }
+
+    // Function which populates the Demographic info from the metadata
+    function buildMetadata(name) {
+        // Loop through metadata
+        for (i = 0; i < metadata.length; i++){
+            if (metadata[i].id === parseInt(name)){
+                document.getElementById("subject_id").innerHTML = `id : ${metadata[i].id}`;
+                document.getElementById("subject_ethnicity").innerHTML = `ethnicity : ${metadata[i].ethnicity}`;
+                document.getElementById("subject_gender").innerHTML = `gender : ${metadata[i].gender}`;
+                document.getElementById("subject_age").innerHTML = `age : ${metadata[i].age}`;
+                document.getElementById("subject_location").innerHTML = `location : ${metadata[i].location}`;
+                document.getElementById("subject_bbtype").innerHTML = `bbtype : ${metadata[i].bbtype}`;
+                document.getElementById("subject_wfreq").innerHTML = `wfreq : ${metadata[i].wfreq}`;
+            }
+        }
+    }
+
+    function buildGauge(name) {
+        // Loop through metadata
+        for (i = 0; i < metadata.length; i++){
+            if (metadata[i].id === parseInt(name)){
+                var value = metadata[i].wfreq
+            }
+        }
         var trace3 = [
             {
               domain: { x: [0, 1], y: [0, 1] },
-              value: 2,//needs inserted
+              value: value,
               title: { text: "<b>Belly Button Washing Frequency</b> <br> Scrubs per Week" },
               type: "indicator",
               mode: "gauge+number",
@@ -124,28 +155,8 @@ d3.json("../samples.json").then((data) => {
         
         //var layout = { width: 600, height: 500, margin: { t: 0, b: 0 } };
         Plotly.newPlot('gauge', trace3, layout2);
-
-        // Render the plot to the div tag 'bar'
-        Plotly.newPlot("bar", data, layout)
-
-        // Render the bubble plot to the div tag 'bubble'
-        Plotly.newPlot('bubble', [trace2])
     }
 
-    // Function which populates the Demographic info from the metadata
-    function buildMetadata(name) {
-        // Loop through metadata
-        for (i = 0; i < metadata.length; i++){
-            if (metadata[i].id === parseInt(name)){
-                document.getElementById("subject_id").innerHTML = `id : ${metadata[i].id}`;
-                document.getElementById("subject_ethnicity").innerHTML = `ethnicity : ${metadata[i].ethnicity}`;
-                document.getElementById("subject_gender").innerHTML = `gender : ${metadata[i].gender}`;
-                document.getElementById("subject_age").innerHTML = `age : ${metadata[i].age}`;
-                document.getElementById("subject_location").innerHTML = `location : ${metadata[i].location}`;
-                document.getElementById("subject_bbtype").innerHTML = `bbtype : ${metadata[i].bbtype}`;
-                document.getElementById("subject_wfreq").innerHTML = `wfreq : ${metadata[i].wfreq}`;
-            }
-        }
-    }
+        
     
 })
