@@ -110,6 +110,11 @@ d3.json("../samples.json").then((data) => {
                   { range: [7, 8], color: "green" },
                   { range: [8, 9], color: "pink" },
                 ],
+              },
+              pointer: {
+                length: 0.8,
+                strokeWidth: 0.035,
+                iconScale: 1.0
               }
             }
           ];
