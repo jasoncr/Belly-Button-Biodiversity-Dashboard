@@ -29,7 +29,7 @@ d3.json("../samples.json").then((data) => {
     }
 
   
-    // Create function that inputs the test subject number as name and builds the bar and 
+    // Create function that inputs the test subject number as name and builds the bar and bubble charts
     function buildPlots(name){
         var otu_ids = [];
         var sample_values = [];
