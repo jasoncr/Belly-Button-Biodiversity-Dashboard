@@ -117,7 +117,9 @@ d3.json("../samples.json").then((data) => {
     function buildGauge(name) {
         // Loop through metadata
         for (i = 0; i < metadata.length; i++){
+            // Find the metadata that has the selected participant's id no.
             if (metadata[i].id === parseInt(name)){
+                // Set value to the frequency of belly button washings per week
                 var value = metadata[i].wfreq
             }
         }
@@ -150,12 +152,7 @@ d3.json("../samples.json").then((data) => {
               }
             }
           ];
-          
-          var layout2 = { width: 600, height: 450, margin: { t: 0, b: 0 } };
-
-        
-        //var layout = { width: 600, height: 500, margin: { t: 0, b: 0 } };
-        Plotly.newPlot('gauge', trace3, layout2);
+        Plotly.newPlot('gauge', trace3);
     }
 
         
