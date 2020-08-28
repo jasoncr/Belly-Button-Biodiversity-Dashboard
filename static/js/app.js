@@ -3,11 +3,11 @@
 d3.json("../samples.json").then((data) => {
     var names = data.names;
     var metadata = data.metadata;
-    var samples = data.samples
+    var samples = data.samples;
 
     // Use D3 to select the dropdown menu
     d3.selectAll("#selDataset").on("change", updatePlotly);
-    var select = document.getElementById("selDataset")
+    var select = document.getElementById("selDataset");
     // Add the test subject id numbers to the drop down list
     for (i = 0; i < names.length; i++){
         var id = names[i];
@@ -44,25 +44,25 @@ d3.json("../samples.json").then((data) => {
                     otu_ids.push(samples[i].otu_ids[j]);
                     sample_values.push(samples[i].sample_values[j]);
                     otu_labels.push(samples[i].otu_labels[j]);
-                }
-            }
-        }
+                };
+            };
+        };
         // slice the 3 arrays to find the top 10 
-        ids = otu_ids.slice(0,10)
-        values = sample_values.slice(0,10)
-        labels = otu_labels.slice(0,10)
+        ids = otu_ids.slice(0,10);
+        values = sample_values.slice(0,10);
+        labels = otu_labels.slice(0,10);
 
         // adjust ids so the values are strings and add 'OTU' to the beginning of the ids
-        ids = ids.map(String)
-        var ids2 = []
+        ids = ids.map(String);
+        var ids2 = [];
         for (i=0; i<ids.length; i++){
-            ids2.push('OTU ' + ids[i])
-        }
+            ids2.push('OTU ' + ids[i]);
+        };
         
         // Reverse the arrays so they are in decending order
-        rev_ids = ids2.reverse()
-        rev_values = values.reverse()
-        rev_labels = labels.reverse()
+        rev_ids = ids2.reverse();
+        rev_values = values.reverse();
+        rev_labels = labels.reverse();
 
         // Trace1 for the bar chart
         var trace1 = {
@@ -71,13 +71,13 @@ d3.json("../samples.json").then((data) => {
             text : rev_labels,
             type : "bar",
             orientation : "h"
-        }
+        };
         // Apply layout
         var layout = {
             showlegend : false
-        }
+        };
         // Data
-        var data = [trace1]
+        var data = [trace1];
 
         // Trace2 for the bubble chart
         var trace2 = {
@@ -89,14 +89,14 @@ d3.json("../samples.json").then((data) => {
                 size: sample_values,
                 color: otu_ids
             },
-        }
+        };
 
         // Render the plot to the div tag 'bar'
-        Plotly.newPlot("bar", data, layout)
+        Plotly.newPlot("bar", data, layout);
 
         // Render the bubble plot to the div tag 'bubble'
-        Plotly.newPlot('bubble', [trace2])
-    }
+        Plotly.newPlot('bubble', [trace2]);
+    };
 
     // Function which populates the Demographic info from the metadata
     function buildMetadata(name) {
@@ -120,9 +120,9 @@ d3.json("../samples.json").then((data) => {
             // Find the metadata that has the selected participant's id no.
             if (metadata[i].id === parseInt(name)){
                 // Set value to the frequency of belly button washings per week
-                var value = metadata[i].wfreq
-            }
-        }
+                var value = metadata[i].wfreq;
+            };
+        };
         var trace3 = [
             {
               domain: { x: [0, 1], y: [0, 1] },
@@ -145,16 +145,8 @@ d3.json("../samples.json").then((data) => {
                   { range: [8, 9], color: 'RGB(85,139,47)' },
                 ],
               },
-              pointer: {
-                length: 0.8,
-                strokeWidth: 0.035,
-                iconScale: 1.0
-              }
             }
           ];
         Plotly.newPlot('gauge', trace3);
     }
-
-        
-    
 })
