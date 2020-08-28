@@ -8,6 +8,7 @@ d3.json("../samples.json").then((data) => {
     // Use D3 to select the dropdown menu
     d3.selectAll("#selDataset").on("change", updatePlotly);
     var select = document.getElementById("selDataset");
+    
     // Add the test subject id numbers to the drop down list
     for (i = 0; i < names.length; i++){
         var id = names[i];
