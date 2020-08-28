@@ -8,7 +8,7 @@ d3.json("../samples.json").then((data) => {
     // Use D3 to select the dropdown menu
     d3.selectAll("#selDataset").on("change", updatePlotly);
     var select = document.getElementById("selDataset");
-    
+
     // Add the test subject id numbers to the drop down list
     for (i = 0; i < names.length; i++){
         var id = names[i];
@@ -25,6 +25,7 @@ d3.json("../samples.json").then((data) => {
         // Assign the value of the dropdown menu option to a variable
         var dataset = dropdownMenu.property("value");
 
+        // Call the 3 functions to create the bubble, bar, metadata, and gauge charts
         buildPlots(dataset);
         buildMetadata(dataset);
         buildGauge(dataset);
@@ -33,15 +34,16 @@ d3.json("../samples.json").then((data) => {
   
     // Create function that inputs the test subject number as name and builds the bar and bubble charts
     function buildPlots(name){
+        // 3 arrays to hold the ids, sample values, and the labels
         var otu_ids = [];
         var sample_values = [];
         var otu_labels = [];
         // Loop through the samples to find the subject name's data
-        for (i=0; i<samples.length; i++){
+        for (i=0; i < samples.length; i++){
             // If the test subject's id is the same as name
             if (samples[i].id === name){
                 // Loop through the json file to create 3 arrays with the information needed for the bar
-                for (j = 0; j<samples[i].otu_ids.length; j++){
+                for (j = 0; j < samples[i].otu_ids.length; j++){
                     otu_ids.push(samples[i].otu_ids[j]);
                     sample_values.push(samples[i].sample_values[j]);
                     otu_labels.push(samples[i].otu_labels[j]);
@@ -73,12 +75,6 @@ d3.json("../samples.json").then((data) => {
             type : "bar",
             orientation : "h"
         };
-        // Apply layout
-        var layout = {
-            showlegend : false
-        };
-        // Data
-        var data = [trace1];
 
         // Trace2 for the bubble chart
         var trace2 = {
@@ -93,13 +89,13 @@ d3.json("../samples.json").then((data) => {
         };
 
         // Render the plot to the div tag 'bar'
-        Plotly.newPlot("bar", data, layout);
+        Plotly.newPlot("bar", [trace1]);
 
         // Render the bubble plot to the div tag 'bubble'
         Plotly.newPlot('bubble', [trace2]);
     };
 
-    // Function which populates the Demographic info from the metadata
+    // Function which populates the demographic info from the metadata
     function buildMetadata(name) {
         // Loop through metadata
         for (i = 0; i < metadata.length; i++){
@@ -111,9 +107,9 @@ d3.json("../samples.json").then((data) => {
                 document.getElementById("subject_location").innerHTML = `location : ${metadata[i].location}`;
                 document.getElementById("subject_bbtype").innerHTML = `bbtype : ${metadata[i].bbtype}`;
                 document.getElementById("subject_wfreq").innerHTML = `wfreq : ${metadata[i].wfreq}`;
-            }
-        }
-    }
+            };
+        };
+    };
 
     function buildGauge(name) {
         // Loop through metadata
@@ -148,6 +144,7 @@ d3.json("../samples.json").then((data) => {
               },
             }
           ];
+        // Create the gauge plot at div 'gauge'
         Plotly.newPlot('gauge', trace3);
     }
 })
