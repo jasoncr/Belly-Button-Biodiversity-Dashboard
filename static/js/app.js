@@ -1,6 +1,6 @@
 // Use D3 to fetch and read the JSON file
 // The data from the JSON file is arbitrarily named data as the argument
-d3.json("../samples.json").then((data) => {
+d3.json("../../samples.json").then((data) => {
     var names = data.names;
     var metadata = data.metadata;
     var samples = data.samples;
