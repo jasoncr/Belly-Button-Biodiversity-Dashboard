@@ -6,5 +6,7 @@ I used D3 and JavaScript to display a drop down list so the user can select one 
 The github page to find this dashboard at is https://jasoncr.github.io/plotly-challenge/.
 
 Below are examples of the dashboard. 
+
+
 ![Sample1](/Images/083551.png)
 ![Sample2](/Images/083722.png)
